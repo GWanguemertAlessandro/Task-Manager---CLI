@@ -31,6 +31,7 @@ def list_tasks(tasks):
         print("No tasks found.")
         return
 
+    print("\nYour tasks:")
     for index, task in enumerate(tasks, start=1):
         status = "✓" if task["completed"] else " "
         print(f"{index}. [{status}] {task['title']}")
@@ -38,7 +39,15 @@ def list_tasks(tasks):
 
 def complete_task(tasks):
     list_tasks(tasks)
-    index = int(input("Task number to complete: ")) - 1
+
+    if not tasks:
+        return
+
+    try:
+        index = int(input("Task number to complete: ")) - 1
+    except ValueError:
+        print("Please enter a valid number.")
+        return
 
     if 0 <= index < len(tasks):
         tasks[index]["completed"] = True
@@ -50,7 +59,15 @@ def complete_task(tasks):
 
 def delete_task(tasks):
     list_tasks(tasks)
-    index = int(input("Task number to delete: ")) - 1
+
+    if not tasks:
+        return
+
+    try:
+        index = int(input("Task number to delete: ")) - 1
+    except ValueError:
+        print("Please enter a valid number.")
+        return
 
     if 0 <= index < len(tasks):
         tasks.pop(index)
